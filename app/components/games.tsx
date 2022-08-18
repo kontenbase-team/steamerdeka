@@ -1,5 +1,7 @@
 import { Link as RemixLink } from "@remix-run/react";
 import type { Games } from "~/types/game";
+import { formatDate } from "~/utils/format-date";
+import { formatPrice } from "~/utils/format-price";
 
 export function GamesList({ games }: { games: Games }) {
   return (
@@ -19,8 +21,8 @@ export function GamesList({ games }: { games: Games }) {
                   alt={game.name}
                 />
               </div>
-              <div className="p-2  flex gap-2 justify-between">
-                <div className="w-[500px]">
+              <div className="p-2 flex gap-2 justify-between w-full">
+                <div className="max-w-[500px]">
                   <h4 className="text-2xl font-bold">{game.name}</h4>
                   <p>{game.description}</p>
                   <ul className="flex gap-1">
@@ -29,11 +31,15 @@ export function GamesList({ games }: { games: Games }) {
                     })}
                   </ul>
                 </div>
-                <div>
-                  <span>{game.releaseDate}</span>
-                </div>
-                <div>
-                  <span>{game.price}</span>
+                <div className="flex flex-col gap-2 items-end">
+                  <b className="text-xl">
+                    {formatPrice(game.price, game.priceCurrency[0]?.value)}
+                  </b>
+                  <b>
+                    <time dateTime={game.releaseDate}>
+                      {formatDate(game.releaseDate)}
+                    </time>
+                  </b>
                 </div>
               </div>
             </div>

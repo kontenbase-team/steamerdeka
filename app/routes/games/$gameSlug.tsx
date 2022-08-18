@@ -3,6 +3,7 @@ import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { axiosInstance } from "~/libs/axios";
 import type { Game } from "~/types/game";
+import { formatDate } from "~/utils/format-date";
 import { formatPrice } from "~/utils/format-price";
 
 export const loader: LoaderFunction = async ({ params }) => {
@@ -10,8 +11,6 @@ export const loader: LoaderFunction = async ({ params }) => {
 
   const response = await axiosInstance.get(`/games?$lookup=*&slug=${gameSlug}`);
   const game: Game = await response.data[0];
-
-  console.log(game);
 
   return json(game);
 };
@@ -28,8 +27,8 @@ export default function GameSlugRoute() {
             src={game?.coverImageUrl[0]?.url}
             alt={game.name}
           />
-          <h1 className="text-4xl">{game.name}</h1>
-          <h2 className="text-3xl">
+          <h1 className="text-4xl font-bold">{game.name}</h1>
+          <h2 className="text-3xl font-bold">
             {formatPrice(game.price, game.priceCurrency[0]?.value)}
           </h2>
           <p>{game.description}</p>
@@ -43,12 +42,14 @@ export default function GameSlugRoute() {
         </div>
 
         <div>
-          <p>Tanggal Rilis: {game.releaseDate}</p>
+          <p>
+            Tanggal Rilis: <b>{formatDate(game.releaseDate)}</b>
+          </p>
           <p>
             Pengembang:{" "}
             <span className="space-x-1">
               {game.developers.map((developer) => {
-                return <span key={developer._id}>{developer.name}</span>;
+                return <b key={developer._id}>{developer.name}</b>;
               })}
             </span>
           </p>
@@ -56,7 +57,7 @@ export default function GameSlugRoute() {
             Penerbit:{" "}
             <span className="space-x-1">
               {game.publishers.map((publisher) => {
-                return <span key={publisher._id}>{publisher.name}</span>;
+                return <b key={publisher._id}>{publisher.name}</b>;
               })}
             </span>
           </p>
@@ -67,7 +68,7 @@ export default function GameSlugRoute() {
             Genre:{" "}
             <span className="space-x-1">
               {game.genres.map((genre) => {
-                return <span key={genre._id}>{genre.name}</span>;
+                return <b key={genre._id}>{genre.name}</b>;
               })}
             </span>
           </p>
@@ -75,13 +76,13 @@ export default function GameSlugRoute() {
             Label:{" "}
             <span className="space-x-1">
               {game.tags.map((tag) => {
-                return <span key={tag._id}>{tag.name}</span>;
+                return <b key={tag._id}>{tag.name}</b>;
               })}
             </span>
           </p>
         </div>
 
-        <pre>{JSON.stringify(game, null, 2)}</pre>
+        {/* <pre>{JSON.stringify(game, null, 2)}</pre> */}
       </div>
     </div>
   );

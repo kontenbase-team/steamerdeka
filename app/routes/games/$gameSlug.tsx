@@ -3,12 +3,15 @@ import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { axiosInstance } from "~/libs/axios";
 import type { Game } from "~/types/game";
+import { formatPrice } from "~/utils/format-price";
 
 export const loader: LoaderFunction = async ({ params }) => {
   const gameSlug = params.gameSlug;
 
   const response = await axiosInstance.get(`/games?$lookup=*&slug=${gameSlug}`);
   const game: Game = await response.data[0];
+
+  console.log(game);
 
   return json(game);
 };
@@ -26,7 +29,9 @@ export default function GameSlugRoute() {
             alt={game.name}
           />
           <h1 className="text-4xl">{game.name}</h1>
-          <h2 className="text-3xl">{game.price}</h2>
+          <h2 className="text-3xl">
+            {formatPrice(game.price, game.priceCurrency[0]?.value)}
+          </h2>
           <p>{game.description}</p>
           <p>
             <span className="space-x-1">
@@ -76,7 +81,7 @@ export default function GameSlugRoute() {
           </p>
         </div>
 
-        {/* <pre>{JSON.stringify(game, null, 2)}</pre> */}
+        <pre>{JSON.stringify(game, null, 2)}</pre>
       </div>
     </div>
   );

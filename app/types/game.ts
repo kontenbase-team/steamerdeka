@@ -21,7 +21,11 @@ export type Game = {
     slug: string;
   }[];
   price: number;
-  priceCurrency: string;
+  priceCurrency: {
+    color: string;
+    id: string;
+    value: string;
+  }[];
   platforms: {
     color: string;
     id: string;

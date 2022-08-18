@@ -2,6 +2,7 @@ export type Games = Game[];
 
 export type Game = {
   _id: string;
+  slug: string;
   name: string;
   description: string;
   coverImageUrl: {

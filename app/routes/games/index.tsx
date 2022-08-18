@@ -10,7 +10,7 @@ export const loader = async () => {
   return json(games);
 };
 
-export default function IndexRoute() {
+export default function GamesRoute() {
   const games = useLoaderData<Games>();
 
   return (

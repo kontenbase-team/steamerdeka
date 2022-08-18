@@ -7,8 +7,8 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
-
-import styles from "./styles/app.css";
+import { Navigation } from "~/components/navigation";
+import styles from "~/styles/app.css";
 
 export const links: LinksFunction = () => {
   return [{ rel: "stylesheet", href: styles }];
@@ -29,6 +29,7 @@ export default function App() {
         <Links />
       </head>
       <body>
+        <Navigation />
         <Outlet />
         <ScrollRestoration />
         <Scripts />

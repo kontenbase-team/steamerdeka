@@ -1,6 +1,7 @@
 import type { LoaderFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
+import { Icon } from "~/components/icon";
 import { axiosInstance } from "~/libs/axios";
 import type { Game } from "~/types/game";
 import { formatDate } from "~/utils/format-date";
@@ -32,13 +33,15 @@ export default function GameSlugRoute() {
             {formatPrice(game.price, game.priceCurrency[0]?.value)}
           </h2>
           <p>{game.description}</p>
-          <p>
-            <span className="space-x-1">
-              {game.platforms.map((platform) => {
-                return <span key={platform.id}>{platform.value}</span>;
-              })}
-            </span>
-          </p>
+          <ul className="text-xl flex gap-2">
+            {game.platforms.map((platform) => {
+              return (
+                <li key={platform.id}>
+                  <Icon name={platform.value} />
+                </li>
+              );
+            })}
+          </ul>
         </div>
 
         <div>

@@ -2,6 +2,7 @@ import { Link as RemixLink } from "@remix-run/react";
 import type { Games } from "~/types/game";
 import { formatDate } from "~/utils/format-date";
 import { formatPrice } from "~/utils/format-price";
+import { Icon } from "~/components/icon";
 
 export function GamesList({ games }: { games: Games }) {
   return (
@@ -25,9 +26,13 @@ export function GamesList({ games }: { games: Games }) {
                 <div className="max-w-[500px]">
                   <h4 className="text-2xl font-bold">{game.name}</h4>
                   <p>{game.description}</p>
-                  <ul className="flex gap-1">
+                  <ul className="text-xl flex gap-2">
                     {game.platforms.map((platform) => {
-                      return <li key={platform.id}>{platform.value}</li>;
+                      return (
+                        <li key={platform.id}>
+                          <Icon name={platform.value} />
+                        </li>
+                      );
                     })}
                   </ul>
                 </div>

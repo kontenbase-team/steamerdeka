@@ -9,6 +9,7 @@ import {
 } from "@remix-run/react";
 import { Navigation } from "~/components/navigation";
 import styles from "~/styles/app.css";
+import { Footer } from "./components/footer";
 
 export const links: LinksFunction = () => {
   return [{ rel: "stylesheet", href: styles }];
@@ -31,6 +32,8 @@ export default function App() {
       <body>
         <Navigation />
         <Outlet />
+        <Footer />
+
         <ScrollRestoration />
         <Scripts />
         <LiveReload />

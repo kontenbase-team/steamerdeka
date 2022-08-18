@@ -10,12 +10,12 @@ export type Game = {
     url: string;
   }[];
   releaseDate: string;
-  developer: {
+  developers: {
     _id: string;
     name: string;
     slug: string;
   }[];
-  publisher: {
+  publishers: {
     _id: string;
     name: string;
     slug: string;
